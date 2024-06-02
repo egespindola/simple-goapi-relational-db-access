@@ -26,6 +26,7 @@ func (a *AlbumService) AlbumsByArtist(name string) ([]database.Album, error) {
 
 }
 
+// albumById query get album by ID
 func (a *AlbumService) AlbumByID(id int64) (database.Album, error) {
 	album, err := a.AlbumDB.FindOne(id)
 
@@ -35,4 +36,14 @@ func (a *AlbumService) AlbumByID(id int64) (database.Album, error) {
 
 	return album, nil
 
+}
+
+// insert an Album into the database
+func (a *AlbumService) AlbumAdd(alb database.Album) (int64, error) {
+	id, err := a.AlbumDB.InsertAlbum(alb)
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }

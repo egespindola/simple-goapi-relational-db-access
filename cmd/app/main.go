@@ -45,11 +45,23 @@ func main() {
 	}
 	fmt.Printf("Albums found: %v\n", albums)
 
-	//
+	// get an album
 	album, err := albumService.AlbumByID(6)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Printf("Album found: %v\n", album)
+
+	// insert
+	albID, err := albumService.AlbumAdd(database.Album{
+		Title:  "OK Computer",
+		Artist: "Radiohead",
+		Price:  49.99,
+	})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("ID of added album: %v\n", albID)
 
 }

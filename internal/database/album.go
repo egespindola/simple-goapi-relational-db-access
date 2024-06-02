@@ -62,3 +62,16 @@ func (a *Album) FindOne(id int64) (Album, error) {
 	return alb, nil
 
 }
+
+func (a *Album) InsertAlbum(alb Album) (int64, error) {
+	result, err := a.db.Exec("INSERT INTO album (title, artist, price) VALUES (?,?,?)", alb.Title, alb.Artist, alb.Price)
+	if err != nil {
+		return 0, err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
+}
