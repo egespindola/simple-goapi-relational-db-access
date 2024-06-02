@@ -39,10 +39,17 @@ func main() {
 	albumDb := database.NewAlbum(db)
 	albumService := service.NewAlbumService(*albumDb)
 
-	response, err := albumService.AlbumsByArtist("John Coltrane")
+	albums, err := albumService.AlbumsByArtist("John Coltrane")
 	if err != nil {
 		log.Fatal(err)
 	}
-	// fmt.Printf("Albums found: %v\n", albums)
-	fmt.Printf("%v", response)
+	fmt.Printf("Albums found: %v\n", albums)
+
+	//
+	album, err := albumService.AlbumByID(6)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("Album found: %v\n", album)
+
 }

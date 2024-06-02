@@ -22,6 +22,17 @@ func (a *AlbumService) AlbumsByArtist(name string) ([]database.Album, error) {
 		return nil, err
 	}
 
-	return albums, err
+	return albums, nil
+
+}
+
+func (a *AlbumService) AlbumByID(id int64) (database.Album, error) {
+	album, err := a.AlbumDB.FindOne(id)
+
+	if err != nil {
+		return album, err
+	}
+
+	return album, nil
 
 }

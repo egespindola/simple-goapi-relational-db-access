@@ -43,3 +43,22 @@ func (a *Album) FindByArtist(name string) ([]Album, error) {
 
 	return albums, nil
 }
+
+func (a *Album) FindOne(id int64) (Album, error) {
+	var alb Album
+
+	row := a.db.QueryRow("SELECT * FROM album WHERE ID = ?", id)
+
+	if err := row.Scan(&alb.ID, &alb.Title, &alb.Artist, &alb.Price); err != nil {
+		if err == sql.ErrNoRows {
+			// return alb, fmt.Errorf("albumsById %d: no such album", id)
+			return alb, err
+		}
+		// return alb, fmt.Errorf("albumsById %d: %v", id, err)
+		return alb, err
+
+	}
+
+	return alb, nil
+
+}
